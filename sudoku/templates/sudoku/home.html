@@ -1,0 +1,39 @@
+{% extends "sudoku/base.html" %}
+
+{% block content %}
+    <h1>Sudoku Home</h1>
+
+    {% for row in grids %}
+        <div class="row {% if forloop.counter0|divisibleby:3 %} heavy-top {% endif %} {% if forloop.counter == 9 %} heavy-bottom {% endif %}">
+            {% for col in row %}
+                <div class="col-md border {% if forloop.counter|divisibleby:3 %} heavy-right {% endif %} {% if forloop.counter == 1 %} heavy-left {% endif %} text-center py-3">
+                    {% if col  %}
+                        {{ col }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <div class="row mt-5">
+        
+            <div class="col-md"></div>
+            <div class="col-md-4">
+                <a href="{% url 'sudoku-home' %}" class="btn btn-info w-100">Generate another</a>
+            </div>
+            <div class="col-md"></div>
+            <div class="col-md-4">
+                <!-- <a href="{% url 'sudoku-puzzler' %}" class="btn btn-info w-100">Puzzlify</a> -->
+                {% if request.resolver_match.url_name == 'sudoku-home' %}
+                    <a href="{% url 'sudoku-puzzler' %}" class="btn btn-info w-100">Puzzlify</a>
+                {% else %}
+                    {% if request.resolver_match.url_name == 'sudoku-solution' %}
+                        <a href="{% url 'sudoku-puzzle' %}" class="btn btn-info w-100">Show Puzzle</a>
+                    {% else %}
+                        <a href="{% url 'sudoku-solution' %}" class="btn btn-info w-100">Show Solution</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="col-md"></div>
+    </div>
+{% endblock content %}
