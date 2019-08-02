@@ -126,10 +126,11 @@ def about(request):
 
 def puzzlify(request):
     global puzzle, options
-    reInitializeOptions()
+    reInitializeOptions() 
     num = randint(10, 40)
     x = 0
-
+    numberList = [1,2,3,4,5,6,7,8,9]
+    
     while x < num:
         row = randint(0,8)
         col = randint(0,8)
@@ -140,7 +141,7 @@ def puzzlify(request):
 
     findOptions()
 
-    return render(request, 'sudoku/home.html', { 'grids': puzzle, 'options': options })
+    return render(request, 'sudoku/home.html', { 'grids': puzzle, 'options': options, 'numList': numberList })
 
 def solution(request):
     global puzzle, options
@@ -150,8 +151,9 @@ def solution(request):
 def showPuzzle(request):
     global puzzle, options
     findOptions()
+    numberList = [1,2,3,4,5,6,7,8,9]
 
-    return render(request, 'sudoku/home.html', { 'grids': puzzle, 'options': options })
+    return render(request, 'sudoku/home.html', { 'grids': puzzle, 'options': options, 'numList': numberList })
 
 def checkGrid(grid):
     for row in range(0,9):

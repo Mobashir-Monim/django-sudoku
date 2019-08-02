@@ -12,8 +12,22 @@
                     {% if col %}
                         {{ col }}
                     {% else %}
-                        {% if options and request.resolver_match.url_name == 'sudoku-solution' %}
-                            {{ options|index:forloop.parentloop.counter0|index:forloop.counter0 }}
+                        {% if options %}
+                            {% if request.resolver_match.url_name == 'sudoku-solution' %}
+                                <select name="" id="" class="form-control">
+                                    <option value="">Select</option>
+                                    <!-- {% for option in options|index:forloop.parentloop.counter0|index:forloop.counter0 %}
+                                        <option value="">{{ option }}</option>
+                                    {% endfor %} -->
+                                </select>
+                            {% else %}
+                                <select name="" id="" class="form-control py-0 my-0">
+                                    <option value="">Select</option>
+                                    {% for option in numList %}
+                                        <option value="">{{ option }}</option>
+                                    {% endfor %}
+                                </select>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 </div>
@@ -36,7 +50,7 @@
                     {% if request.resolver_match.url_name == 'sudoku-solution' %}
                         <a href="{% url 'sudoku-puzzle' %}" class="btn btn-info w-100">Show Puzzle</a>
                     {% else %}
-                        <a href="{% url 'sudoku-solution' %}" class="btn btn-info w-100">Show Solution</a>
+                        <a href="{% url 'sudoku-solution' %}" class="btn btn-info w-100">Show Options</a>
                     {% endif %}
                 {% endif %}
             </div>
